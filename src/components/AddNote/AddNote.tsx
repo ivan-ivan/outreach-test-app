@@ -44,14 +44,14 @@ const AddNote: FC = () => {
   }
 
   return (
-    <Form data-testid="addNote">
+    <Form data-testid="add-note">
       <Textarea
         maxRows={4}
         minRows={4}
         placeholder="Add a note about Milton Romaguera..."
         onChange={handleInput}
         value={msg}
-        data-testid="addNote-input"
+        data-testid="add-note-input"
       />
       <Box display="flex" justifyContent="space-between" my="10px" mx={0}>
         <Box display="flex" gap="15px">
@@ -71,7 +71,7 @@ const AddNote: FC = () => {
         <Button
           variant="outlined"
           size="small"
-          data-testid="addNote-submit"
+          data-testid="add-note-submit"
           disabled={!msg}
           onClick={submitHandler}
         >

@@ -4,6 +4,7 @@ import FreeBreakfastIcon from "@mui/icons-material/FreeBreakfast";
 import PersonIcon from "@mui/icons-material/Person";
 import PhoneEnabledIcon from "@mui/icons-material/PhoneEnabled";
 import SportsBarIcon from "@mui/icons-material/SportsBar";
+import DefaultIcon from '@mui/icons-material/AddReaction';
 import { NoteActionType } from './types';
 
 
@@ -19,6 +20,10 @@ export const getNoteActionText = (type: NoteActionType['name']): string => {
   return noteActions.find(action => action.name === type)?.text || '';
 };
 
-export const getNoteActionIcon = (type: NoteActionType['name']): FunctionComponent | undefined => {
-  return noteActions.find(action => action.name === type)?.icon;
+export const getNoteActionIcon = (type: NoteActionType['name']): FunctionComponent => {
+  // return noteActions.find(action => action.name === type)?.icon;
+
+  const action = noteActions.find(action => action.name === type);
+
+  return action ? action.icon : DefaultIcon;
 };
