@@ -21,8 +21,6 @@ export const getNoteActionText = (type: NoteActionType['name']): string => {
 };
 
 export const getNoteActionIcon = (type: NoteActionType['name']): FunctionComponent => {
-  // return noteActions.find(action => action.name === type)?.icon;
-
   const action = noteActions.find(action => action.name === type);
 
   return action ? action.icon : DefaultIcon;

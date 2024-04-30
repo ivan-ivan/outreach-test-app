@@ -1,6 +1,9 @@
-import { FC, useState, ChangeEventHandler, SyntheticEvent } from 'react';
+import { FC, useState, ChangeEventHandler } from 'react';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
+import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+import ToggleButton from '@mui/material/ToggleButton';
+import Stack from '@mui/material/Stack';
 import { TextareaAutosize as BaseTextareaAutosize } from '@mui/base/TextareaAutosize';
 import { FormControl as BaseFormControl } from '@mui/base/FormControl';
 import Box from '@mui/system/Box';
@@ -23,25 +26,36 @@ const Form = styled(BaseFormControl)`
 const AddNote: FC = () => {
   const addNote = useStore((state) => state.addNote);
 
-  const [msg, setMsg] = useState<string>();
-  const [noteActionType, setNoteActionType] = useState<NoteActionType['name']>();
+  const [message, setMessage] = useState<string>('');
+  const [noteActionType, setNoteActionType] = useState<NoteActionType['name'] | null>(null);
 
-  const submitHandler = (event: SyntheticEvent) => {
-    event.preventDefault();
+  const clearInput = () => {
+    setMessage('');
+    setNoteActionType(null);
+  };
 
-    if (msg && noteActionType) {
+  const submitHandler = () => {
+    if (message && noteActionType) {
       const timestamp = (new Date()).getTime();
 
-      addNote({ timestamp, msg, type: noteActionType });
+      addNote({ timestamp, msg: message, type: noteActionType });
 
-      setMsg('');
-      setNoteActionType(undefined);
+      clearInput();
     }
   };
 
   const handleInput: ChangeEventHandler<HTMLTextAreaElement> = (event) => {
-    setMsg(event.currentTarget.value)
+    setMessage(event.currentTarget.value)
   }
+
+  const handleNoteTypeChange = (
+      event: React.MouseEvent<HTMLElement>,
+      newNoteType: NoteActionType['name'] | null,
+  ) => {
+    setNoteActionType(newNoteType);
+  };
+
+  const isSubmitDisabled = !message || !noteActionType;
 
   return (
     <Form data-testid="add-note">
@@ -50,29 +64,34 @@ const AddNote: FC = () => {
         minRows={4}
         placeholder="Add a note about Milton Romaguera..."
         onChange={handleInput}
-        value={msg}
+        value={message}
         data-testid="add-note-input"
       />
       <Box display="flex" justifyContent="space-between" my="10px" mx={0}>
-        <Box display="flex" gap="15px">
+        {/*<Stack direction="row" spacing={1}>*/}
+        <ToggleButtonGroup value={noteActionType} exclusive onChange={handleNoteTypeChange}>
           {noteActions.map((action: NoteActionType) => {
             const Icon = action.icon;
 
             return (
-              <IconButton
+              // <IconButton
+              <ToggleButton
+                value={action.name}
                 key={action.name}
-                onClick={() => setNoteActionType(action.name)}
+                // onClick={() => setNoteActionType(action.name)}
+                size="small"
               >
-                <Icon sx={{ fontSize: 20 }} />
-              </IconButton>
+                <Icon />
+              </ToggleButton>
             );
           })}
-        </Box>
+        </ToggleButtonGroup>
+        {/*</Stack>*/}
         <Button
           variant="outlined"
           size="small"
           data-testid="add-note-submit"
-          disabled={!msg}
+          disabled={isSubmitDisabled}
           onClick={submitHandler}
         >
           Submit

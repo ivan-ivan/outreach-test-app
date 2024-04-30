@@ -44,7 +44,7 @@ const Note: FC<NoteProps>= ({ note, currentUser, contact }) => {
     <Box bgcolor="rgba(246,246,246,255)">
       <Box display="flex" justifyContent="space-between" width={'50px'} position="absolute" left={60} pt="5px">
         <Box data-testid="feed-time">{calculateDaysBetween(note.timestamp)}d</Box>
-        <Icon sx={{ fontSize: 20 }} color="action" />
+        <Icon color="action"/>
       </Box>
       <Box display="flex" justifyContent="space-between" px="10px">
         <Box>
