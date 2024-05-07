@@ -22,5 +22,12 @@ export const useStore = create<ZustandState & ZustandActions>()(
     deleteNote: (id) => set((state) => {
       state.notes = state.notes.filter(note => note.id !== id);
     }),
+    editNote: (newNote) => set((state) => {
+      const index = state.notes.findIndex((note) => note.id === newNote.id);
+
+      if (index !== -1) {
+        state.notes[index] = newNote;
+      }
+    }),
   }))
 );

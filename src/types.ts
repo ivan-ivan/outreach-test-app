@@ -20,4 +20,5 @@ export type ZustandState = {
 export type ZustandActions = {
   addNote: (note: Omit<NoteType, 'id'>) => void;
   deleteNote: (id: string) => void;
+  editNote: (newNote: NoteType) => void;
 };
