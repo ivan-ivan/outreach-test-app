@@ -66,17 +66,14 @@ const AddNote: FC = () => {
         data-testid="add-note-input"
       />
       <Box display="flex" justifyContent="space-between" my="10px" mx={0}>
-        {/*<Stack direction="row" spacing={1}>*/}
         <ToggleButtonGroup value={noteActionType} exclusive onChange={handleNoteTypeChange}>
           {noteActions.map((action: NoteActionType) => {
             const Icon = action.icon;
 
             return (
-              // <IconButton
               <ToggleButton
                 value={action.name}
                 key={action.name}
-                // onClick={() => setNoteActionType(action.name)}
                 size="small"
               >
                 <Icon />
@@ -84,7 +81,6 @@ const AddNote: FC = () => {
             );
           })}
         </ToggleButtonGroup>
-        {/*</Stack>*/}
         <Button
           variant="outlined"
           size="small"
